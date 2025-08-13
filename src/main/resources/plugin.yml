@@ -1,0 +1,323 @@
+name: AzuraSE
+main: me.azura.azurase.core.AzuraSEPlugin
+version: 1.0.0
+api-version: '1.21'
+author: Azura
+website: https://example.com/azurase
+softdepend:
+  - PlaceholderAPI
+
+commands:
+  azuraengine:
+    description: Azura Server Engine control
+    usage: /<command> [args]
+    permission: azura.admin.azuraengine
+    aliases: [azse]
+  vanish:
+    description: Toggle vanish
+    usage: /<command>
+    permission: azura.staff.vanish
+  fly:
+    description: Toggle fly
+    usage: /<command> [player]
+    permission: azura.staff.fly
+  kick:
+    description: Kick a player
+    usage: /<command> <player> [reason]
+    permission: azura.moderation.kick
+  ban:
+    description: Ban a player
+    usage: /<command> <player> [reason]
+    permission: azura.moderation.ban
+  tempban:
+    description: Temporary ban a player
+    usage: /<command> <player> <duration> [reason]
+    permission: azura.moderation.tempban
+  mute:
+    description: Mute a player
+    usage: /<command> <player> [duration] [reason]
+    permission: azura.moderation.mute
+  unmute:
+    description: Unmute a player
+    usage: /<command> <player>
+    permission: azura.moderation.unmute
+  warn:
+    description: Warn a player
+    usage: /<command> <player> <reason>
+    permission: azura.moderation.warn
+  tp:
+    description: Teleport to a player
+    usage: /<command> <player>
+    permission: azura.teleport.tp
+  tphere:
+    description: Teleport a player to you
+    usage: /<command> <player>
+    permission: azura.teleport.tphere
+  invsee:
+    description: View a player's inventory
+    usage: /<command> <player>
+    permission: azura.moderation.invsee
+  clear:
+    description: Clear inventory
+    usage: /<command> [player]
+    permission: azura.moderation.clear
+  gm:
+    description: Change gamemode
+    usage: /<command> <mode> [player]
+    permission: azura.moderation.gm
+  heal:
+    description: Heal yourself or a player
+    usage: /<command> [player]
+    permission: azura.moderation.heal
+  feed:
+    description: Feed yourself or a player
+    usage: /<command> [player]
+    permission: azura.moderation.feed
+  staffchat:
+    description: Toggle staff chat
+    usage: /<command>
+    permission: azura.staff.chat
+  broadcast:
+    description: Broadcast message
+    usage: /<command> <message>
+    permission: azura.broadcast
+  back:
+    description: Teleport back to last location
+    usage: /<command>
+    permission: azura.teleport.back
+  rtp:
+    description: Random teleport
+    usage: /<command>
+    permission: azura.teleport.rtp
+  tpa:
+    description: Request to teleport to a player
+    usage: /<command> <player>
+    permission: azura.teleport.tpa
+  tpahere:
+    description: Request a player to teleport to you
+    usage: /<command> <player>
+    permission: azura.teleport.tpahere
+  tpaccept:
+    description: Accept a teleport request
+    usage: /<command>
+    permission: azura.teleport.tpaccept
+  tpdeny:
+    description: Deny a teleport request
+    usage: /<command>
+    permission: azura.teleport.tpdeny
+  home:
+    description: Teleport to a home
+    usage: /<command> [name]
+    permission: azura.homes.home
+  sethome:
+    description: Set a home
+    usage: /<command> [name]
+    permission: azura.homes.sethome
+  delhome:
+    description: Delete a home
+    usage: /<command> <name>
+    permission: azura.homes.delhome
+  setspawn:
+    description: Set the global spawn
+    usage: /<command>
+    permission: azura.spawn.set
+  spawn:
+    description: Teleport to spawn
+    usage: /<command>
+    permission: azura.spawn.use
+  clan:
+    description: Clan management
+    usage: /<command> <subcommand>
+    permission: azura.clans.use
+    aliases: [clans, guild, guilds]
+  wireless:
+    description: Wireless system commands
+    usage: /<command> <subcommand>
+    permission: azura.wireless.use
+  ignore:
+    description: Ignore players
+    usage: /<command> <player|list|remove>
+    permission: azura.ignore.use
+  report:
+    description: Report a player
+    usage: /<command> <player> <reason>
+    permission: azura.report
+  ping:
+    description: Show ping
+    usage: /<command> [player]
+    permission: azura.ping
+  azurawand:
+    description: Give selection wand
+    usage: /<command>
+    permission: azura.edit.wand
+  set:
+    description: Set blocks in selection
+    usage: /<command> <block>
+    permission: azura.edit.set
+  replace:
+    description: Replace blocks in selection
+    usage: /<command> <from> <to>
+    permission: azura.edit.replace
+  undo:
+    description: Undo last edit
+    usage: /<command>
+    permission: azura.edit.undo
+  performance:
+    description: Performance tools
+    usage: /<command> <subcommand>
+    permission: azura.dev.performance
+  debug:
+    description: Debug tools
+    usage: /<command> <subcommand>
+    permission: azura.dev.debug
+  heuristic:
+    description: Heuristic tools
+    usage: /<command> <subcommand>
+    permission: azura.dev.heuristic
+  enumerated:
+    description: Feature flags
+    usage: /<command> <id> <true|false>
+    permission: azura.dev.enumerated
+  scale:
+    description: Scaling tools
+    usage: /<command> <method> <id>
+    permission: azura.dev.scale
+  binary:
+    description: Internal sandbox runner
+    usage: /<command> <executor|debug|test|api> <id> <run id>
+    permission: azura.dev.binary
+  spy:
+    description: Spy on commands and packets
+    usage: /<command> [packets]
+    permission: azura.dev.spy
+  azurakbsync:
+    description: Sync with Azura KB
+    usage: /<command> <args>
+    permission: azura.dev.kbsync
+  callback:
+    description: Invoke callback hook
+    usage: /<command> <string>
+    permission: azura.dev.callback
+  permtrace:
+    description: Trace permissions
+    usage: /<command> <player> <node>
+    permission: azura.dev.permtrace
+  configdiff:
+    description: Diff configs
+    usage: /<command> <file1> <file2>
+    permission: azura.dev.configdiff
+  callgraph:
+    description: Command call graph
+    usage: /<command> <command>
+    permission: azura.dev.callgraph
+  httpget:
+    description: HTTP GET debug
+    usage: /<command> <url>
+    permission: azura.dev.httpget
+  wsdebug:
+    description: WebSocket debug
+    usage: /<command> <url>
+    permission: azura.dev.wsdebug
+  patest:
+    description: PlaceholderAPI eval
+    usage: /<command> <placeholder>
+    permission: azura.dev.patest
+  apiprofile:
+    description: API profiler
+    usage: /<command> <endpoint>
+    permission: azura.dev.apiprofile
+  dbquery:
+    description: Read-only SQL query
+    usage: /<command> <sql>
+    permission: azura.dev.dbquery
+  cache:
+    description: Cache tools
+    usage: /<command> list <type>
+    permission: azura.dev.cache
+  serialize:
+    description: Serialize object
+    usage: /<command> <object>
+    permission: azura.dev.serialize
+  memorysnap:
+    description: Memory snapshot
+    usage: /<command>
+    permission: azura.dev.memorysnap
+  cmdwatch:
+    description: Watch player commands
+    usage: /<command> <player>
+    permission: azura.dev.cmdwatch
+  filecheck:
+    description: File hash check
+    usage: /<command>
+    permission: azura.dev.filecheck
+  timemethod:
+    description: Time a method
+    usage: /<command> <class> <method>
+    permission: azura.dev.timemethod
+  flow:
+    description: Visualize command flow
+    usage: /<command> <command>
+    permission: azura.dev.flow
+  errorlog:
+    description: Error log replay
+    usage: /<command> <id> replay
+    permission: azura.dev.errorlog
+  threads:
+    description: List JVM threads
+    usage: /<command>
+    permission: azura.dev.threads
+  gcstats:
+    description: GC stats and trigger
+    usage: /<command>
+    permission: azura.dev.gcstats
+  jvmflags:
+    description: JVM flags
+    usage: /<command>
+    permission: azura.dev.jvmflags
+  plugindep:
+    description: Plugin dependency graph
+    usage: /<command> <plugin>
+    permission: azura.dev.plugindep
+  classload:
+    description: Classloader owner lookup
+    usage: /<command> <class>
+    permission: azura.dev.classload
+  injectcode:
+    description: Inject Java snippet (guarded)
+    usage: /<command> <java snippet>
+    permission: azura.dev.injectcode
+  physics:
+    description: Physics stress test
+    usage: /<command> test
+    permission: azura.dev.physics
+  validateconfig:
+    description: Validate config against schema
+    usage: /<command> <file>
+    permission: azura.dev.validateconfig
+  migratedata:
+    description: Migrate data between stores
+    usage: /<command> <from> <to>
+    permission: azura.dev.migratedata
+  exploit:
+    description: Scan for exploits
+    usage: /<command> scan
+    permission: azura.dev.exploit
+  stress:
+    description: Stress test tools
+    usage: /<command> entities <count>
+    permission: azura.dev.stress
+  alert:
+    description: Alerts
+    usage: /<command> tps <threshold>
+    permission: azura.dev.alert
+
+permissions:
+  azura.*:
+    description: All Azura permissions
+    default: op
+  azura.staff.*:
+    description: Staff tools
+    default: op
+  azura.dev.*:
+    description: Developer tools
+    default: op

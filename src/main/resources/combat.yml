@@ -1,0 +1,9 @@
+# Combat logging settings override
+settings:
+  tag-seconds: 15
+  drop-inventory-on-logout: true
+  blocked-commands:
+    - spawn
+    - home
+    - sethome
+    - rtp

@@ -1,0 +1,108 @@
+# Azura Server Engine - config.yml
+# Java 21 / Paper 1.21.4
+
+storage:
+  type: YAML # YAML or MYSQL
+  mysql:
+    host: localhost
+    port: 3306
+    database: azurase
+    username: root
+    password: ''
+    pool:
+      maximumPoolSize: 10
+      minimumIdle: 2
+      connectionTimeoutMillis: 10000
+
+logging:
+  debug: false
+  per-service:
+    vanish: false
+    clans: false
+    teleport: false
+    homes: false
+    spawn: false
+    combat: false
+    wireless: false
+    moderation: false
+    ignore: false
+    devtools: false
+    edit: false
+
+reloadable-sections:
+  - messages
+  - clans
+  - homes
+  - spawn
+  - combat
+  - ignore
+  - wireless
+  - commandblock
+
+cooldowns:
+  back-seconds: 60
+  rtp-seconds: 120
+  tpa-seconds: 60
+
+warmups:
+  rtp-seconds: 5
+  tpa-seconds: 3
+
+teleport:
+  tpa-expiry-seconds: 60
+  block-movement-during-warmup: true
+
+rtp:
+  world: world # Overworld only
+  radius:
+    min: 1000
+    max: 5000
+  attempts: 20
+  safe-blocks: [GRASS_BLOCK, DIRT, STONE, SAND, SNOW, SANDSTONE]
+  blacklist-biomes: [OCEAN, DEEP_OCEAN, FROZEN_OCEAN]
+
+combat:
+  tag-seconds: 15
+  blocked-commands: [spawn, home, sethome, rtp]
+  drop-inventory-on-logout: true
+  show-bossbar: true
+  show-actionbar: true
+
+vanish:
+  persist: true
+  see-permission: azura.staff.vanish.see
+
+homes:
+  default-limit: 1
+  permission-prefix: azura.homes.limit.
+
+spawn:
+  allow-bed-spawn: true
+
+wireless:
+  enabled: true
+  energy:
+    enabled: true
+    max-energy: 1000
+    regen-per-minute: 30
+  channels:
+    - global
+    - trade
+    - help
+  tiers:
+    default:
+      slots: 2
+    plus:
+      slots: 4
+    elite:
+      slots: 8
+
+commandblock:
+  hide-commands-without-permission: true
+
+reports:
+  webhook: ''
+
+safety:
+  rate-limits:
+    expensive-command-seconds: 2

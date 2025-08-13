@@ -1,0 +1,7 @@
+hide-commands-without-permission: true
+blocked:
+  - plugins
+  - pl
+  - version
+  - ver
+  - help
