@@ -10,6 +10,9 @@ import me.azura.azurase.core.command.PingCommand;
 import me.azura.azurase.core.config.ConfigManager;
 import me.azura.azurase.core.listener.BackTrackerListener;
 import me.azura.azurase.core.listener.CommandBlockListener;
+import me.azura.azurase.core.listener.CommandSpyListener;
+import me.azura.azurase.devtools.DevCommands;
+import me.azura.azurase.devtools.DevToolsService;
 import me.azura.azurase.homes.HomesCommands;
 import me.azura.azurase.homes.HomesService;
 import me.azura.azurase.moderation.ModerationCommands;
@@ -48,6 +51,7 @@ public final class ServiceContainer implements Services {
 	private ClanService clanService;
 	private ModerationService moderationService;
 	private RtpService rtpService;
+	private DevToolsService devToolsService;
 
 	public ServiceContainer(AzuraSEPlugin plugin) {
 		this.plugin = plugin;
@@ -70,6 +74,8 @@ public final class ServiceContainer implements Services {
 		this.clanService = new ClanService(new YamlClanRepository(plugin));
 		this.moderationService = new ModerationService(plugin);
 		this.rtpService = new RtpService(plugin);
+		this.devToolsService = new DevToolsService(plugin);
+		this.devToolsService.start();
 	}
 
 	public void registerCommandsAndListeners() {
@@ -117,11 +123,46 @@ public final class ServiceContainer implements Services {
 
 		bindCommand("rtp", new RtpCommand(rtpService));
 
+		// Dev/Admin commands
+		bindCommand("performance", new DevCommands.Performance());
+		bindCommand("debug", new DevCommands.Debug(devToolsService));
+		bindCommand("enumerated", new DevCommands.Enumerated(devToolsService));
+		bindCommand("scale", new DevCommands.Scale());
+		bindCommand("binary", new DevCommands.Binary());
+		bindCommand("spy", new DevCommands.Spy(devToolsService));
+		bindCommand("patest", new DevCommands.Patest());
+		bindCommand("httpget", new DevCommands.HttpGet());
+		bindCommand("wsdebug", new DevCommands.Wsdebug());
+		bindCommand("apiprofile", new DevCommands.ApiProfile());
+		bindCommand("dbquery", new DevCommands.DbQuery());
+		bindCommand("cache", new DevCommands.Cache());
+		bindCommand("serialize", new DevCommands.Serialize());
+		bindCommand("memorysnap", new DevCommands.MemorySnap());
+		bindCommand("cmdwatch", new DevCommands.CmdWatch(devToolsService));
+		bindCommand("filecheck", new DevCommands.FileCheck());
+		bindCommand("timemethod", new DevCommands.TimeMethod());
+		bindCommand("flow", new DevCommands.Flow());
+		bindCommand("errorlog", new DevCommands.ErrorLog());
+		bindCommand("threads", new DevCommands.Threads());
+		bindCommand("gcstats", new DevCommands.GcStats());
+		bindCommand("jvmflags", new DevCommands.JvmFlags());
+		bindCommand("plugindep", new DevCommands.PluginDep());
+		bindCommand("classload", new DevCommands.ClassLoad());
+		bindCommand("injectcode", new DevCommands.InjectCode());
+		bindCommand("physics", new DevCommands.Physics());
+		bindCommand("validateconfig", new DevCommands.ValidateConfig());
+		bindCommand("migratedata", new DevCommands.MigrateData());
+		bindCommand("exploit", new DevCommands.Exploit());
+		bindCommand("stress", new DevCommands.Stress());
+		bindCommand("alert", new DevCommands.Alert(devToolsService));
+		registerListener(new CommandSpyListener(devToolsService));
+
 		registerListener(new CommandBlockListener(plugin));
 	}
 
 	public void shutdown() {
 		try {
+			this.devToolsService.stop();
 			this.asyncExecutor.shutdownNow();
 		} catch (Exception ignored) {}
 	}
