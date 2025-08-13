@@ -12,6 +12,11 @@ import me.azura.azurase.core.listener.BackTrackerListener;
 import me.azura.azurase.core.listener.CommandBlockListener;
 import me.azura.azurase.homes.HomesCommands;
 import me.azura.azurase.homes.HomesService;
+import me.azura.azurase.moderation.ModerationCommands;
+import me.azura.azurase.moderation.ModerationListener;
+import me.azura.azurase.moderation.ModerationService;
+import me.azura.azurase.rtp.RtpCommand;
+import me.azura.azurase.rtp.RtpService;
 import me.azura.azurase.spawn.SpawnCommands;
 import me.azura.azurase.spawn.SpawnService;
 import me.azura.azurase.teleport.TeleportService;
@@ -41,6 +46,8 @@ public final class ServiceContainer implements Services {
 	private SpawnService spawnService;
 	private HomesService homesService;
 	private ClanService clanService;
+	private ModerationService moderationService;
+	private RtpService rtpService;
 
 	public ServiceContainer(AzuraSEPlugin plugin) {
 		this.plugin = plugin;
@@ -61,6 +68,8 @@ public final class ServiceContainer implements Services {
 		this.spawnService = new SpawnService(plugin);
 		this.homesService = new HomesService(plugin);
 		this.clanService = new ClanService(new YamlClanRepository(plugin));
+		this.moderationService = new ModerationService(plugin);
+		this.rtpService = new RtpService(plugin);
 	}
 
 	public void registerCommandsAndListeners() {
@@ -90,6 +99,23 @@ public final class ServiceContainer implements Services {
 
 		bindCommand("clan", new ClanCommand(clanService));
 		registerListener(new ClanListener(clanService));
+
+		bindCommand("fly", new ModerationCommands.Fly());
+		bindCommand("heal", new ModerationCommands.Heal());
+		bindCommand("feed", new ModerationCommands.Feed());
+		bindCommand("gm", new ModerationCommands.Gm());
+		bindCommand("kick", new ModerationCommands.Kick());
+		bindCommand("ban", new ModerationCommands.Ban());
+		bindCommand("tempban", new ModerationCommands.Tempban());
+		bindCommand("mute", new ModerationCommands.Mute(moderationService));
+		bindCommand("unmute", new ModerationCommands.Unmute(moderationService));
+		bindCommand("warn", new ModerationCommands.Warn());
+		bindCommand("invsee", new ModerationCommands.Invsee());
+		bindCommand("clear", new ModerationCommands.Clear());
+		bindCommand("staffchat", new ModerationCommands.Staffchat(moderationService));
+		registerListener(new ModerationListener(moderationService));
+
+		bindCommand("rtp", new RtpCommand(rtpService));
 
 		registerListener(new CommandBlockListener(plugin));
 	}

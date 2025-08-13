@@ -16,7 +16,7 @@ public final class ClanCommand extends BaseCommand {
 
 	@Override protected boolean execute(CommandSender sender, String label, String[] args) {
 		if (!(sender instanceof Player player)) { Text.sendPrefixed(sender, "<red>Only players can use this command."); return true; }
-		if (args.length == 0) { Text.sendPrefixed(player, "<gray>/clan create <name> [tag], /clan delete, /clan invite <player>, /clan accept, /clan join <name>, /clan leave, /clan kick <player>, /clan promote <player>, /clan demote <player>, /clan ally <name>, /clan enemy <name>, /clan neutral <name>, /clan chat <clan|ally|enemy|off>, /clan home, /clan sethome, /clan ff <on|off>"); return true; }
+		if (args.length == 0) { Text.sendPrefixed(player, "<gray>/clan create <name> [tag], /clan delete, /clan invite <player>, /clan accept, /clan join <name>, /clan leave, /clan kick <player>, /clan promote <player>, /clan demote <player>, /clan ally <name>, /clan enemy <name>, /clan neutral <name>, /clan chat <clan|ally|enemy|off>, /clan home, /clan sethome, /clan ff <on|off>, /clan list, /clan online, /clan info <clan>"); return true; }
 		String sub = args[0].toLowerCase(Locale.ROOT);
 		return switch (sub) {
 			case "create" -> handleCreate(player, args);
@@ -35,6 +35,9 @@ public final class ClanCommand extends BaseCommand {
 			case "home" -> handleHome(player);
 			case "sethome" -> handleSetHome(player);
 			case "ff" -> handleFriendlyFire(player, args);
+			case "list" -> handleList(player);
+			case "online" -> handleOnline(player);
+			case "info" -> handleInfo(player, args);
 			default -> { Text.sendPrefixed(player, "<red>Unknown subcommand."); yield true; }
 		};
 	}
@@ -124,6 +127,37 @@ public final class ClanCommand extends BaseCommand {
 		Clan clan = opt.get(); if (!clan.getLeader().equals(player.getUniqueId())) { Text.sendPrefixed(player, "<red>Only leader can toggle friendly-fire."); return true; }
 		if (args.length < 2) { Text.sendPrefixed(player, "<red>Usage: /clan ff <on|off>"); return true; }
 		boolean on = args[1].equalsIgnoreCase("on"); service.setFriendlyFire(clan, on); Text.sendPrefixed(player, "<yellow>Friendly-fire "+(on?"enabled":"disabled")+"."); return true; }
+
+	private boolean handleList(Player player) {
+		String list = String.join(", ", service.findByName("").map(Clan::getName).stream().toList());
+		var all = new ArrayList<String>();
+		for (var c : service.findByName("")) {}
+		// Fallback: iterate via getClanByPlayer map is private; re-query via info of online players
+		Set<String> names = new java.util.HashSet<>();
+		for (Player p : Bukkit.getOnlinePlayers()) service.getClanByPlayer(p.getUniqueId()).ifPresent(c -> names.add(c.getName()));
+		Text.sendPrefixed(player, "<gray>Clans online/known: <white>"+String.join(", ", names)+"</white>");
+		return true;
+	}
+
+	private boolean handleOnline(Player player) {
+		var opt = service.getClanByPlayer(player.getUniqueId()); if (opt.isEmpty()) { Text.sendPrefixed(player, "<red>You are not in a clan."); return true; }
+		Clan clan = opt.get();
+		List<String> online = new ArrayList<>();
+		for (UUID u : clan.getMembers().keySet()) {
+			Player p = Bukkit.getPlayer(u);
+			if (p != null && p.isOnline()) online.add(p.getName());
+		}
+		Text.sendPrefixed(player, "<gray>Online in "+clan.getName()+": <white>"+String.join(", ", online)+"</white>");
+		return true;
+	}
+
+	private boolean handleInfo(Player player, String[] args) {
+		if (args.length<2) { Text.sendPrefixed(player, "<red>Usage: /clan info <clan>"); return true; }
+		var opt = service.findByName(args[1]); if (opt.isEmpty()) { Text.sendPrefixed(player, "<red>Clan not found."); return true; }
+		Clan c = opt.get();
+		Text.sendPrefixed(player, "<gray>Clan <white>"+c.getName()+"</white> ["+c.getTag()+"] Leader: <white>"+Bukkit.getOfflinePlayer(c.getLeader()).getName()+"</white> Members: <white>"+c.getMembers().size()+"</white> Allies: <white>"+c.getAllies().size()+"</white> Enemies: <white>"+c.getEnemies().size()+"</white>");
+		return true;
+	}
 
 	@Override public List<String> onTabComplete(CommandSender s, org.bukkit.command.Command c, String a, String[] args) {
 		if (args.length == 1) return Arrays.asList("create","delete","invite","accept","join","leave","kick","promote","demote","ally","enemy","neutral","chat","home","sethome","ff");
