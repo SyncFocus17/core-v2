@@ -1,0 +1,9 @@
+limits:
+  max-members: 20
+  max-allies: 5
+  max-enemies: 10
+  max-homes: 3
+
+settings:
+  friendly-fire: false
+  tag-prefix: "<aqua>[<name>]</aqua> "

@@ -1,0 +1,69 @@
+prefix: "<gradient:#00E1FF:#0080FF>[Azura]</gradient> "
+no-permission: "<red>You do not have permission to do that." 
+player-only: "<red>Only players can use this command."
+unknown-command: "<red>Unknown subcommand."
+reloaded-section: "<green>Reloaded section: <white><section></white>."
+
+vanish:
+  enabled: "<gray>You are now <green>vanished</green>."
+  disabled: "<gray>You are now <red>visible</red>."
+  other-see: "<yellow><player> toggled vanish."
+
+clans:
+  created: "<green>Clan <white><name></white> created."
+  deleted: "<red>Clan <white><name></white> deleted."
+  joined: "<green>You joined <white><name></white>."
+  left: "<yellow>You left <white><name></white>."
+  invited: "<green>You invited <white><player></white>."
+  invite-received: "<yellow>You were invited to <white><name></white> by <white><inviter></white>. Use /clan accept."
+  no-invite: "<red>No pending invite."
+  not-in-clan: "<red>You are not in a clan."
+  already-in-clan: "<red>You are already in a clan."
+
+moderation:
+  muted: "<yellow><player> has been muted."
+  unmuted: "<green><player> has been unmuted."
+  warned: "<yellow><player> has been warned: <white><reason></white>"
+  staffchat-toggle: "<green>Staff chat <state>."
+
+teleport:
+  tpa-sent: "<green>TPA request sent to <white><target></white>."
+  tpa-received: "<yellow><sender></yellow> requested to teleport to you. /tpaccept or /tpdeny"
+  tpa-accepted: "<green>Teleport request accepted."
+  tpa-denied: "<red>Teleport request denied."
+  back: "<gray>Teleported back to your last location."
+
+homes:
+  set: "<green>Home <white><name></white> set."
+  deleted: "<yellow>Home <white><name></white> deleted."
+  teleported: "<gray>Teleported to home <white><name></white>."
+  limit-reached: "<red>You reached your home limit (<white><limit></white>)."
+
+spawn:
+  set: "<green>Spawn set."
+  teleported: "<gray>Teleported to spawn."
+
+combat:
+  tagged: "<red>You are in combat! Do not log out for <white><seconds>s</white>."
+  cleared: "<green>You are no longer in combat."
+  blocked-command: "<red>You cannot use that while combat-tagged."
+
+wireless:
+  status: "<gray>Energy: <white><energy></white>/<white><max></white>, Channels: <white><channels></white>"
+
+ignore:
+  added: "<yellow>You are now ignoring <white><player></white>."
+  removed: "<green>You stopped ignoring <white><player></white>."
+  list: "<gray>Ignored: <white><list></white>"
+
+broadcast:
+  format: "<gold><bold>BROADCAST</bold></gold> <message>"
+
+rtp:
+  searching: "<gray>Searching for a safe location..."
+  teleported: "<green>RTP successful."
+  failed: "<red>Failed to find a safe location. Try again later."
+
+report:
+  submitted: "<yellow>Report submitted against <white><player></white>."
+  notify: "<red>[REPORT]</red> <white><player></white>: <gray><reason></gray>"

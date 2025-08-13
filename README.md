@@ -1,2 +1,3 @@
-# core-v2
-test core project.
+# AzuraSE
+
+Build with: mvn -f /workspace/pom.xml package
