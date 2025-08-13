@@ -7,3 +7,4 @@ limits:
 settings:
   friendly-fire: false
   tag-prefix: "<aqua>[<name>]</aqua> "
+clans: {}

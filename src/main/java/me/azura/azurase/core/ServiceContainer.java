@@ -1,5 +1,9 @@
 package me.azura.azurase.core;
 
+import me.azura.azurase.clans.ClanCommand;
+import me.azura.azurase.clans.ClanListener;
+import me.azura.azurase.clans.ClanService;
+import me.azura.azurase.clans.storage.YamlClanRepository;
 import me.azura.azurase.core.command.AzuraEngineCommand;
 import me.azura.azurase.core.command.BroadcastCommand;
 import me.azura.azurase.core.command.PingCommand;
@@ -36,6 +40,7 @@ public final class ServiceContainer implements Services {
 	private TeleportService teleportService;
 	private SpawnService spawnService;
 	private HomesService homesService;
+	private ClanService clanService;
 
 	public ServiceContainer(AzuraSEPlugin plugin) {
 		this.plugin = plugin;
@@ -55,6 +60,7 @@ public final class ServiceContainer implements Services {
 		this.teleportService = new TeleportService();
 		this.spawnService = new SpawnService(plugin);
 		this.homesService = new HomesService(plugin);
+		this.clanService = new ClanService(new YamlClanRepository(plugin));
 	}
 
 	public void registerCommandsAndListeners() {
@@ -81,6 +87,9 @@ public final class ServiceContainer implements Services {
 
 		bindCommand("broadcast", new BroadcastCommand());
 		bindCommand("ping", new PingCommand());
+
+		bindCommand("clan", new ClanCommand(clanService));
+		registerListener(new ClanListener(clanService));
 
 		registerListener(new CommandBlockListener(plugin));
 	}
