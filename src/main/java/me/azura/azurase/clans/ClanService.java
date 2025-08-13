@@ -30,6 +30,8 @@ public final class ClanService {
 		return id == null ? Optional.empty() : repository.findById(id);
 	}
 
+	public Optional<Clan> findByName(String name) { return repository.findByName(name); }
+
 	public Clan createClan(UUID creator, String name, String tag) {
 		Clan clan = new Clan(UUID.randomUUID(), name, tag, creator);
 		repository.save(clan);

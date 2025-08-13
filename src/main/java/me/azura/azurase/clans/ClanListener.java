@@ -19,8 +19,11 @@ public final class ClanListener implements Listener {
 	public void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getEntity() instanceof Player victim)) return;
 		Player damager = null;
-		if (e.getDamager() instanceof Player p) damager = p;
-		else if (e.getDamager() instanceof org.bukkit.projectiles.ProjectileSource src && e.getDamager() instanceof org.bukkit.entity.Projectile proj && proj.getShooter() instanceof Player p2) damager = p2;
+		if (e.getDamager() instanceof Player p) {
+			damager = p;
+		} else if (e.getDamager() instanceof org.bukkit.entity.Projectile proj && proj.getShooter() instanceof Player p2) {
+			damager = p2;
+		}
 		if (damager == null) return;
 		Optional<Clan> vc = service.getClanByPlayer(victim.getUniqueId());
 		Optional<Clan> dc = service.getClanByPlayer(damager.getUniqueId());
@@ -32,14 +35,12 @@ public final class ClanListener implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
-		// ensure scoreboard entries are added
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			// no-op, handled in service update, but could trigger refresh if needed
+			// scoreboard tag updates handled in service
 		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		// no-op
 	}
 }

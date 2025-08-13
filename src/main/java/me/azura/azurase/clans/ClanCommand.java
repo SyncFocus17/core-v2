@@ -107,7 +107,7 @@ public final class ClanCommand extends BaseCommand {
 	private boolean handleRelation(Player player, String[] args, RelationshipType rel, boolean add) {
 		if (args.length < 2) { Text.sendPrefixed(player, "<red>Usage: /clan "+(rel==RelationshipType.ALLY?"ally":"enemy")+" <name>"); return true; }
 		var opt = service.getClanByPlayer(player.getUniqueId()); if (opt.isEmpty()) { Text.sendPrefixed(player, "<red>You are not in a clan."); return true; }
-		var other = service.repository.findByName(args[1]); if (other.isEmpty()) { Text.sendPrefixed(player, "<red>Clan not found."); return true; }
+		var other = service.findByName(args[1]); if (other.isEmpty()) { Text.sendPrefixed(player, "<red>Clan not found."); return true; }
 		service.setRelation(opt.get(), other.get(), rel, add); Text.sendPrefixed(player, "<green>Relation updated."); return true; }
 
 	private boolean handleNeutral(Player player, String[] args) { return handleRelation(player, args, RelationshipType.ALLY, false); }
